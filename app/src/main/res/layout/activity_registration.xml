@@ -158,24 +158,24 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/already_loggedInTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="fgsdahjgdfjhsagdj"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signup_form"
+<!--    <TextView-->
+<!--        android:id="@+id/already_loggedInTv"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="fgsdahjgdfjhsagdj"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/signup_form"-->
 
-        />
+<!--        />-->
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
 
-        android:text="ytreytiueiytuer"
+<!--        android:text="ytreytiueiytuer"-->
 
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/already_loggedInTv"
-        app:layout_constraintTop_toBottomOf="@+id/signup_form" />
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/already_loggedInTv"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/signup_form" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
