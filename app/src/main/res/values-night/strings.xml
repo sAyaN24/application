@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="welcome">Welcome</string>
+    <string name="login_back">Login back to your account</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forget_pswd">Forgot Password?</string>
+    <string name="sign_up_now">Please Signup to continue</string>
+    <string name="signup">Sign up</string>
+    <string name="full_name">Full name</string>
+    <string name="confirm_password">Confirm password</string>
+</resources>
