@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/dashboard"
+        android:title="@string/dashboard"
+        android:icon="@drawable/round_dashboard"
+        />
+
+    <item
+        android:id="@+id/history"
+        android:title="@string/history"
+        android:icon="@drawable/round_history"
+        />
+    <item
+        android:id="@+id/search"
+        android:title="@string/search"
+        android:icon="@drawable/round_search"
+        />
+
+    <item
+        android:id="@+id/user"
+        android:title="@string/user"
+        android:icon="@drawable/round_person"
+        />
+</menu>

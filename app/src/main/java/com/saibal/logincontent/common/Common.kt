@@ -2,6 +2,7 @@ package com.saibal.logincontent.common
 
 class Common {
     companion object{
-        var PICTURE_INTENT_KEY=123
+        const val PICTURE_INTENT_KEY=123
+        const val REQUEST_CAMERA_PERMISSION = 2
     }
 }

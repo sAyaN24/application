@@ -1,44 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".dashboard.MainActivity">
 
-    <ImageView
-        android:id="@+id/ingredint_ImageView"
-        android:layout_width="300dp"
-        android:layout_height="400dp"
-        android:src="@drawable/wave"
-        android:layout_marginTop="40dp"
-        android:layout_gravity="center"
-        />
-
-    <Button
-        android:id="@+id/camera_button"
+    <FrameLayout
+        android:id="@+id/nav_host_fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:layout_marginStart="110dp"
-        android:layout_marginEnd="110dp"
-        android:text="Take Photo"
-        app:icon="@drawable/outline_camera"
-        style="@style/Widget.MaterialComponents.Button.Icon"
-        />
-
-    <Button
-        android:id="@+id/upload_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/upload"
-        android:layout_marginStart="110dp"
-        android:layout_marginEnd="110dp"
-        android:layout_marginTop="10dp"
-        app:icon="@drawable/cloud_upload"
-        style="@style/Widget.MaterialComponents.Button.Icon"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_navbar"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
          />
 
-</LinearLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navbar"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        app:labelVisibilityMode="selected"
+        app:layout_constraintBottom_toBottomOf="@+id/nav_host_fragment_container"
+
+        app:menu="@menu/bottom_nav_menu" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
