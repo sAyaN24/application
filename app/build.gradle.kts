@@ -47,6 +47,7 @@ dependencies {
     implementation(libs.circleimageview)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.lifecycle.extensions)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

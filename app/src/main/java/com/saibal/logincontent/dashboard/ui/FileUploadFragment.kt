@@ -2,23 +2,24 @@ package com.saibal.logincontent.dashboard.ui
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.saibal.logincontent.R
 import com.saibal.logincontent.common.Common
 import com.saibal.logincontent.common.hasCameraPerrmission
+import java.io.ByteArrayOutputStream
+
 
 
 class FileUploadFragment : Fragment(), View.OnClickListener {
@@ -44,13 +45,7 @@ class FileUploadFragment : Fragment(), View.OnClickListener {
 
         return inflater.inflate(R.layout.fragment_file_upload, container, false)
     }
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == Common.PICTURE_INTENT_KEY && resultCode == RESULT_OK) {
-            val imageBitmap = data?.extras?.get("data") as? Bitmap
-            ingrdientImageView.setImageBitmap(imageBitmap)
-        }
-    }
+
     companion object {
         @JvmStatic
         fun newInstance() =
@@ -71,10 +66,14 @@ class FileUploadFragment : Fragment(), View.OnClickListener {
         }
     }
 
+
+
     private val takePictureLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
             val imageBitmap = result.data?.extras?.get("data") as? Bitmap
             ingrdientImageView.setImageBitmap(imageBitmap)
+            var base64String = imageBitmap?.let { bitmapToBase64(it) }
+            Log.i("base64String", base64String.toString())
         }
     }
     private fun dispatchTakePictureIntent() {
@@ -82,34 +81,12 @@ class FileUploadFragment : Fragment(), View.OnClickListener {
         takePictureLauncher.launch(takePictureIntent)
     }
 
-//    private fun dispatchTakePictureIntent() {
-//        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
-//            activity?.packageManager?.let {
-//                takePictureIntent.resolveActivity(it)?.also {
-//                    photoFile = createImageFile()
-//                    val photoURI: Uri = FileProvider.getUriForFile(
-//                        requireContext(),
-//                        "${BuildConfig.APPLICATION_ID}.fileprovider",
-//                        photoFile
-//                    )
-//                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-//                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
-//                }
-//            }
-//        }
-//    }
-
-//    @Throws(IOException::class)
-//    private fun createImageFile(): File {
-//        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
-//        val storageDir: File? = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-//        return File.createTempFile(
-//            "JPEG_${timeStamp}_",
-//            ".jpg",
-//            storageDir
-//        )
-//    }
-
+    private fun bitmapToBase64(bitmap: Bitmap): String {
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
+        val byteArray = byteArrayOutputStream.toByteArray()
+        return Base64.encodeToString(byteArray, Base64.DEFAULT)
+    }
 
 
 }
