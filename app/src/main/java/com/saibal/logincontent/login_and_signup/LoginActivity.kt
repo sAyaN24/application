@@ -12,6 +12,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.textfield.TextInputEditText
 import com.saibal.logincontent.R
+import com.saibal.logincontent.common.Common
 import com.saibal.logincontent.dashboard.MainActivity
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
@@ -49,12 +50,18 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             //change activity to main activity
             //finish()
             Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this, MainActivity::class.java))
+            var intent:Intent = Intent(this, MainActivity::class.java)
+            intent.putExtra(Common.USER_EMAIL_INTENET_KEY, emailEditText.text.toString())
+            startActivity(intent)
             finishAffinity()
 
         }else{
             Toast.makeText(this, "Invalid Credentials", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun putExtras(s: String) {
+
     }
 
     override fun onClick(v: View?) {

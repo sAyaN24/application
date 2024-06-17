@@ -13,6 +13,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.saibal.logincontent.R
 import com.saibal.logincontent.dashboard.ui.ContentFragment
 import com.saibal.logincontent.dashboard.ui.FileUploadFragment
+import com.saibal.logincontent.dashboard.ui.UserFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -58,7 +59,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.user -> {
-                    //loadFragement(MoreOptionsFragment())
+                    loadFragement(UserFragment())
                     true
                 }
 

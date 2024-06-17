@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
@@ -68,7 +69,8 @@ class ContentFragment : Fragment() {
 
 
     private fun fetchDetailsOfChemicals() {
-        val url = "http://192.168.0.101:3000/Ingredients"
+        val url = "http://192.168.0.102:3000/Ingredients"
+
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val response = NetworkCall.fetchResponse(requireContext(), url)
@@ -85,9 +87,9 @@ class ContentFragment : Fragment() {
                 }
             }catch(e: Exception){
 
-                Handler(Looper.getMainLooper()).post {
-                    Toast.makeText(context, "Please connect to internet or Server is too busy", Toast.LENGTH_SHORT).show()
-                }
+//                Handler(Looper.getMainLooper()).post {
+//                    Toast.makeText(context, "Please connect to internet or Server is too busy", Toast.LENGTH_SHORT).show()
+//                }
 
             }
         }
@@ -95,7 +97,7 @@ class ContentFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance() =
             ContentFragment().apply {
 
             }

@@ -12,6 +12,9 @@ constraintlayout = "2.1.4"
 volley = "1.2.1"
 dropdownview = "1.0.1"
 gson = "2.11.0"
+circleimageview = "3.1.0"
+roomRuntime = "2.6.1"
+lifecycleExtensions = "2.2.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -25,6 +28,9 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 volley = { group = "com.android.volley", name = "volley", version.ref = "volley" }
 dropdownview = { group = "com.github.AnthonyFermin", name = "DropDownView", version.ref = "dropdownview" }
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+circleimageview = { group = "de.hdodenhof", name = "circleimageview", version.ref = "circleimageview" }
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "roomRuntime" }
+androidx-lifecycle-extensions = { group = "androidx.lifecycle", name = "lifecycle-extensions", version.ref = "lifecycleExtensions" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

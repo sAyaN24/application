@@ -44,6 +44,9 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.volley)
     implementation(libs.gson)
+    implementation(libs.circleimageview)
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.lifecycle.extensions)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
