@@ -48,6 +48,9 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.lifecycle.extensions)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.activity.ktx)
+    implementation(libs.vanniktech.android.image.cropper)
+    implementation(libs.cropme)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
