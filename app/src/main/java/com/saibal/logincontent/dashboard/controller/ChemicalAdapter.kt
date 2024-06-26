@@ -1,15 +1,14 @@
 package com.saibal.logincontent.dashboard.controller
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.saibal.logincontent.R
 import com.saibal.logincontent.model.Chemical
@@ -24,27 +23,45 @@ class ChemicalAdapter(private var context: Context, private var chemicalList: Mu
         return ItemViewHolder(view)
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
         val chemical = chemicalList.get(position)
         holder.headerText.text = chemical.name
+        val layoutParams = holder.llForDropdownHeader.layoutParams
         holder.toogleIv.setOnClickListener { view ->
             if(holder.bodyView.visibility == View.VISIBLE){
 
                 holder.bodyView.visibility = View.GONE
+                holder.imageIv.visibility = View.VISIBLE
+                holder.severityIvBar.visibility = View.GONE
+                layoutParams.height = 165
+                holder.headerText.gravity = Gravity.CENTER_VERTICAL
                 holder.toogleIv.setImageDrawable(context.resources.getDrawable(R.drawable.round_arrow_down))
+
             }else if(holder.bodyView.visibility == View.GONE){
 
                 holder.bodyView.visibility = View.VISIBLE
+                holder.severityIvBar.visibility = View.VISIBLE
+                holder.imageIv.visibility = View.GONE
+                layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+                holder.headerText.gravity = Gravity.BOTTOM
                 holder.toogleIv.setImageDrawable(context.resources.getDrawable(R.drawable.round_arrow_up))
             }
         }
         holder.symptomsTv.text = chemical.allergy_symptoms
         when(chemical.severity){
-            "Medium" -> holder.linearLayoutForIngredients.setBackgroundColor(context.resources.getColor(R.color.bg_yellow))
-            "High" -> holder.linearLayoutForIngredients.setBackgroundColor(context.resources.getColor(R.color.bg_high))
+            "Medium" ->{ holder.imageIv.setImageDrawable(context.resources.getDrawable(R.drawable.severity_medium))
+                holder.severityIvBar.setImageDrawable(context.resources.getDrawable(R.color.bg_yellow))
+            }
+            "Low" -> {holder.imageIv.setImageDrawable(context.resources.getDrawable(R.drawable.severity_low))
+                holder.severityIvBar.setImageDrawable(context.resources.getDrawable(R.color.bg_green))
+            }
+            "High" -> {holder.imageIv.setImageDrawable(context.resources.getDrawable(R.drawable.severity_high))
+                holder.severityIvBar.setImageDrawable(context.resources.getDrawable(R.color.bg_high))
+            }
         }
-        holder.severityTv.text = "Severity: "+ chemical.severity
+
     }
 
     override fun getItemCount(): Int {
@@ -57,13 +74,14 @@ class ChemicalAdapter(private var context: Context, private var chemicalList: Mu
 //    }
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val headerView:View = itemView.findViewById(R.id.header)
+
         val bodyView:View = itemView.findViewById(R.id.body)
         val headerText:TextView = itemView.findViewById(R.id.ingredient_nameTv)
-        val severityTv:TextView = itemView.findViewById(R.id.severityTv)
+        val imageIv:ImageView = itemView.findViewById(R.id.iconIv)
         val symptomsTv:TextView = itemView.findViewById(R.id.symptomsTv)
         val toogleIv:ImageView = itemView.findViewById(R.id.toogleIv)
-        val linearLayoutForIngredients:LinearLayout = itemView.findViewById(R.id.llForIngredient)
+        val severityIvBar:ImageView = itemView.findViewById(R.id.severity_iv_bar)
+        val llForDropdownHeader: LinearLayout = itemView.findViewById(R.id.llForDropdownHeader)
 
     }
 

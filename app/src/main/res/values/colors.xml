@@ -3,8 +3,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="mtrl_textinput_default_box_stroke_color">#fff</color>
-    <color name="bg_high">#FC0851</color>
-    <color name="bg_yellow">#DBC605</color>
-    <color name="bg_green">#06CA41</color>
+    <color name="bg_high">#DC6412</color>
+    <color name="bg_yellow">#CCB107</color>
+    <color name="bg_green">#0B9D40</color>
     <color name="theme_blue">#2A6EF4</color>
 </resources>

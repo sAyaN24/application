@@ -1,29 +1,38 @@
 package com.saibal.logincontent.dashboard
 
-import android.content.pm.PackageManager
-import android.os.Build
+import android.content.Intent
 import android.os.Bundle
-import android.widget.FrameLayout
-import android.widget.Toast
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.fragment.app.Fragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.gson.Gson
 import com.saibal.logincontent.R
-import com.saibal.logincontent.common.Common
-import com.saibal.logincontent.dashboard.ui.ContentFragment
-import com.saibal.logincontent.dashboard.ui.FileUploadFragment
-import com.saibal.logincontent.dashboard.ui.UserFragment
+import com.saibal.logincontent.camera.PictureUploadActivity
+import com.saibal.logincontent.dashboard.controller.ChemicalAdapter
+import com.saibal.logincontent.model.Chemical
+import com.saibal.logincontent.user.UserActivity
+import com.saibal.logincontent.util.NetworkCall
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var fragementContainerView: FrameLayout
-    private lateinit var bottomNavigationView: BottomNavigationView
-
+    private lateinit var spinner: Spinner
+    private val chemicalList = mutableListOf<Chemical>()
+    private lateinit var chemicalAdapter: ChemicalAdapter
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var floatingActionButton: FloatingActionButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,73 +43,64 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        val a = listOf("Lorem", "Ipsum", "Dolor", "Sit", "Amet")
+        spinner = findViewById(R.id.filterSpinner)
+        recyclerView = findViewById(R.id.checmicalDetailsRv)
+        floatingActionButton = findViewById(R.id.userFloatingActionButton)
+        spinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, a)
 
-        fragementContainerView = findViewById(R.id.nav_host_fragment_container)
-        bottomNavigationView = findViewById(R.id.bottom_navbar)
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
-            bottomNavigationView.setOnApplyWindowInsetsListener(null)
-            bottomNavigationView.setPadding(0, 0, 0, 0);
-        }
-
-        loadFragement(FileUploadFragment())
-
-        if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S){
-            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CAMERA), Common.REQUEST_CAMERA_PERMISSION)
-        }else {
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(
-                    android.Manifest.permission.CAMERA,
-                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    android.Manifest.permission.READ_EXTERNAL_STORAGE
-                ),
-                Common.REQUEST_CAMERA_PERMISSION
-            )
-        }
-
-        bottomNavigationView.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.dashboard -> {
-                    loadFragement(FileUploadFragment())
-                    true
-                }
-
-                R.id.history -> {
-                    //loadFragement(WorkersFragment())
-                    true
-                }
-
-                R.id.search->{
-                    loadFragement(ContentFragment())
-                    true
-                }
-
-                R.id.user -> {
-                    loadFragement(UserFragment())
-                    true
-                }
-                else -> false
             }
 
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+        }
+
+        chemicalAdapter = ChemicalAdapter(this, chemicalList)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = chemicalAdapter
+
+        fetchDetailsOfChemicals()
+
+        floatingActionButton.setOnClickListener {
+            startActivity(Intent(this,UserActivity::class.java))
         }
 
     }
 
-    private fun loadFragement(fragment: Fragment) {
-        supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment_container, fragment).commit()
+    private fun fetchDetailsOfChemicals() {
+        val url = "http://192.168.1.43:3000/Ingredients"
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = NetworkCall.fetchResponse(applicationContext, url)
+                withContext(Dispatchers.Main) {
+                    for(i in 0 until response.length()){
+                        var jsonObject = response.getJSONObject(i)
+                        var todoJson = jsonObject.toString()
+                        var gson = Gson()
+                        var chemical = gson.fromJson(todoJson, Chemical::class.java)
+                        chemicalList.add(chemical)
+                        chemicalAdapter.notifyItemInserted(i)
+                    }
+                    //chemicalAdapter.notifyDataSetChanged()
+                }
+            }catch(e: Exception){
+
+//                Handler(Looper.getMainLooper()).post {
+//                    Toast.makeText(context, "Please connect to internet or Server is too busy", Toast.LENGTH_SHORT).show()
+//                }
+
+            }
+        }
     }
 
-    override fun onRequestPermissionsResult(requestCode:Int, permissions:Array<out String>, grantResults:IntArray){
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        if (requestCode == Common.REQUEST_CAMERA_PERMISSION) {
-            if (grantResults.all {
-                it == PackageManager.PERMISSION_DENIED
-            }) {
-                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
-                }
-            }
+    override fun onBackPressed() {
+        super.onBackPressed()
+        startActivity(Intent(this, PictureUploadActivity::class.java))
     }
 
 }

@@ -2,6 +2,7 @@ package com.saibal.logincontent.dashboard.ui
 
 import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
@@ -37,8 +38,11 @@ class FileUploadFragment : Fragment(), View.OnClickListener {
     private lateinit var cropBtn: Button
     private lateinit var cropview: CropLayout
 
+    private lateinit var context: Context
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         cropview = view.findViewById(R.id.crop_view)
         cameraBtn = view.findViewById(R.id.camera_button)
@@ -48,6 +52,11 @@ class FileUploadFragment : Fragment(), View.OnClickListener {
         uploadBtn.setOnClickListener(this)
         cropBtn.setOnClickListener(this)
 
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        this.context = context
     }
 
     override fun onCreateView(
@@ -89,6 +98,7 @@ class FileUploadFragment : Fragment(), View.OnClickListener {
                             cameraBtn.visibility = View.VISIBLE
                             cameraBtn.text ="Retake Picture"
                             cropBtn.visibility = View.GONE
+                            uploadBtn.visibility = View.VISIBLE
                             cropview.setBitmap(bitmap)
                             Toast.makeText(requireContext(), "One day i will do something", Toast.LENGTH_SHORT)
                                 .show()
@@ -100,8 +110,12 @@ class FileUploadFragment : Fragment(), View.OnClickListener {
 
             R.id.upload_button -> {
 
-                Toast.makeText(requireContext(), "One day i will do something", Toast.LENGTH_SHORT)
-                    .show()
+                activity?.supportFragmentManager?.beginTransaction()
+                    ?.replace(R.id.fragmentContainer,
+                        LoadingFragment())?.
+                    addToBackStack(null)?.commit()
+                //startActivity(Intent(activity?.applicationContext, MainActivity::class.java))
+
             }
         }
     }
@@ -165,6 +179,7 @@ class FileUploadFragment : Fragment(), View.OnClickListener {
     }
 
     private fun doWithUi(){
+        uploadBtn.visibility = View.GONE
         cameraBtn.visibility = View.GONE
         cropBtn.visibility = View.VISIBLE
         dispatchTakePictureIntent()

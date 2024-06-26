@@ -9,8 +9,9 @@
     <com.takusemba.cropme.CropLayout
         android:id="@+id/crop_view"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        app:cropme_background_alpha="80%"
+        android:layout_height="450dp"
+        android:layout_marginTop="20dp"
+        app:cropme_background_alpha="60%"
         app:cropme_frame_height_percent="80%"
         app:cropme_frame_width_percent="80%"
         app:cropme_max_scale="2.0"
@@ -23,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="110dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="55dp"
         android:layout_marginEnd="110dp"
         android:text="@string/take_photo"
         app:icon="@drawable/outline_camera" />
@@ -34,11 +35,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="110dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="45dp"
         android:layout_marginEnd="110dp"
         android:text="@string/crop_photo"
         android:visibility="gone"
-        app:icon="@drawable/outline_camera"
+        app:icon="@drawable/round_crop"
         tools:visibility="visible" />
 
     <Button
@@ -50,8 +51,8 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="110dp"
         android:text="@string/upload"
-
+        android:visibility="gone"
+        tools:visibility="visible"
         app:icon="@drawable/cloud_upload" />
-
 
 </LinearLayout>
