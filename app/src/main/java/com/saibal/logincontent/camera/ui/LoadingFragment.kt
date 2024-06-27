@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.saibal.logincontent.R
@@ -28,7 +27,6 @@ class LoadingFragment(var flag: Boolean) : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -47,12 +45,8 @@ class LoadingFragment(var flag: Boolean) : Fragment() {
         noRespIv = view.findViewById(R.id.noResponseIv)
         goBackBtn = view.findViewById(R.id.goBackBtn)
         loadingTv = view.findViewById(R.id.loadingTv)
-        arguments?.let {
-            Toast.makeText(requireContext(), flag.toString()+"CREATE", Toast.LENGTH_SHORT).show()
-            flag = it.getBoolean(ARG_PARAM)
-        }
+
         if(flag) {
-            Toast.makeText(requireContext(), flag.toString(), Toast.LENGTH_SHORT).show()
             loaddingSpinner.visibility = View.VISIBLE
             loadingTv.visibility = View.VISIBLE
             mainHandler.postDelayed({
@@ -61,11 +55,9 @@ class LoadingFragment(var flag: Boolean) : Fragment() {
                 noRespTv.visibility = View.VISIBLE
                 noRespIv.visibility = View.VISIBLE
                 goBackBtn.visibility = View.VISIBLE
-            }, 15500)
-
+            }, 20100)
         }
         else{
-            Toast.makeText(requireContext(), flag.toString(), Toast.LENGTH_SHORT).show()
             loaddingSpinner.visibility = View.GONE
             loadingTv.visibility = View.GONE
             noRespTv.visibility = View.VISIBLE
@@ -77,7 +69,6 @@ class LoadingFragment(var flag: Boolean) : Fragment() {
             requireActivity().onBackPressed()
         }
     }
-
 
     override fun onDestroy() {
         super.onDestroy()

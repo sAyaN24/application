@@ -2,6 +2,7 @@ package com.saibal.logincontent.dashboard.controller
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -25,9 +26,16 @@ class ChemicalAdapter(private var context: Context, private var chemicalList: Mu
 
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-
+        var symptoms = ""
         val chemical = chemicalList.get(position)
         holder.headerText.text = chemical.Name
+        for(symptom in chemical.Symptoms){
+            symptoms = symptoms+symptom+", "
+        }
+       symptoms = symptoms.slice(0 until symptoms.length-2)
+        Log.d("symptoms",symptoms)
+        holder.symptomsTv.text = symptoms
+
         val layoutParams = holder.llForDropdownHeader.layoutParams
         holder.toogleIv.setOnClickListener { view ->
             if(holder.bodyView.visibility == View.VISIBLE){
@@ -49,7 +57,7 @@ class ChemicalAdapter(private var context: Context, private var chemicalList: Mu
                 holder.toogleIv.setImageDrawable(context.resources.getDrawable(R.drawable.round_arrow_up))
             }
         }
-       // holder.symptomsTv.text = chemical.allergy_symptoms
+       //
         when(chemical.Severity){
             "Medium" ->{ holder.imageIv.setImageDrawable(context.resources.getDrawable(R.drawable.severity_medium))
                 holder.severityIvBar.setImageDrawable(context.resources.getDrawable(R.color.bg_yellow))
@@ -75,7 +83,7 @@ class ChemicalAdapter(private var context: Context, private var chemicalList: Mu
 
 
 //    override fun getFilter(): Filter {
-//        TODO()
+//
 //    }
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){

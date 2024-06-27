@@ -10,8 +10,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.saibal.logincontent.R
-import com.saibal.logincontent.common.Common
 import com.saibal.logincontent.camera.ui.FileUploadFragment
+import com.saibal.logincontent.common.Common
 import java.io.ByteArrayOutputStream
 
 
@@ -29,9 +29,7 @@ class PictureUploadActivity : AppCompatActivity(){
             insets
         }
 
-
         fragmentContainer = findViewById(R.id.fragmentContainer)
-
 
         if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S){
             ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CAMERA), Common.REQUEST_CAMERA_PERMISSION)
@@ -48,7 +46,6 @@ class PictureUploadActivity : AppCompatActivity(){
         }
 
         supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, FileUploadFragment()).commit()
-
     }
 
     private fun compressImage(image: Bitmap): Bitmap {
