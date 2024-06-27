@@ -22,4 +22,6 @@
     <string name="take_photo">Take Photo</string>
     <string name="ingredients">Ingredients</string>
     <string name="symptoms">Symptoms</string>
+    <string name="no_response_from_server">No Response From Server</string>
+    <string name="go_back">Go Back</string>
 </resources>

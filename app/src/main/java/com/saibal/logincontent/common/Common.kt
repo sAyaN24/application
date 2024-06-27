@@ -7,5 +7,6 @@ class Common {
         const val REQUEST_PERMISSION = 101
         const val REQUEST_STORAGE_PERMISSION = 3
         const val USER_EMAIL_INTENET_KEY = "user_email_intent_key"
+        const val INGREDIENT_RES_INTENT_KEY = "ingredient_res_intent_key"
     }
 }

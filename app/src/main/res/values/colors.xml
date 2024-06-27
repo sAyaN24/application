@@ -4,6 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="mtrl_textinput_default_box_stroke_color">#fff</color>
     <color name="bg_high">#DC6412</color>
+    <color name="bg_very_high">#CA0404</color>
     <color name="bg_yellow">#CCB107</color>
     <color name="bg_green">#0B9D40</color>
     <color name="theme_blue">#2A6EF4</color>

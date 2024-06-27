@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_marginTop="10dp"
-    tools:context=".dashboard.ui.ContentFragment">
+    tools:context=".camera.ui.ContentFragment">
 
 
 

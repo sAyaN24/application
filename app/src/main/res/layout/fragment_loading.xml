@@ -10,21 +10,63 @@
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/circularProgressIndicator"
         android:layout_width="wrap_content"
-
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="visible"
+        />
 
     <TextView
+        android:id="@+id/loadingTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Loading ..."
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/circularProgressIndicator" />
+        app:layout_constraintTop_toBottomOf="@+id/circularProgressIndicator"
+        android:visibility="visible"
+        />
+
+    <ImageView
+        android:id="@+id/noResponseIv"
+        android:layout_width="150dp"
+        android:layout_height="180dp"
+        android:src="@drawable/no_message"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.395"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/noRespTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_response_from_server"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/noResponseIv"
+        android:visibility="gone"
+        />
+
+    <Button
+        android:id="@+id/goBackBtn"
+        android:layout_width="140dip"
+        android:layout_height="wrap_content"
+        android:text="@string/go_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/noRespTv"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

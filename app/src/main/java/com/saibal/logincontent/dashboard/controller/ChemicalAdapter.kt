@@ -27,7 +27,7 @@ class ChemicalAdapter(private var context: Context, private var chemicalList: Mu
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
         val chemical = chemicalList.get(position)
-        holder.headerText.text = chemical.name
+        holder.headerText.text = chemical.Name
         val layoutParams = holder.llForDropdownHeader.layoutParams
         holder.toogleIv.setOnClickListener { view ->
             if(holder.bodyView.visibility == View.VISIBLE){
@@ -49,8 +49,8 @@ class ChemicalAdapter(private var context: Context, private var chemicalList: Mu
                 holder.toogleIv.setImageDrawable(context.resources.getDrawable(R.drawable.round_arrow_up))
             }
         }
-        holder.symptomsTv.text = chemical.allergy_symptoms
-        when(chemical.severity){
+       // holder.symptomsTv.text = chemical.allergy_symptoms
+        when(chemical.Severity){
             "Medium" ->{ holder.imageIv.setImageDrawable(context.resources.getDrawable(R.drawable.severity_medium))
                 holder.severityIvBar.setImageDrawable(context.resources.getDrawable(R.color.bg_yellow))
             }
@@ -60,6 +60,11 @@ class ChemicalAdapter(private var context: Context, private var chemicalList: Mu
             "High" -> {holder.imageIv.setImageDrawable(context.resources.getDrawable(R.drawable.severity_high))
                 holder.severityIvBar.setImageDrawable(context.resources.getDrawable(R.color.bg_high))
             }
+
+            "Very High" -> {holder.imageIv.setImageDrawable(context.resources.getDrawable(R.drawable.severity_very_high))
+                holder.severityIvBar.setImageDrawable(context.resources.getDrawable(R.color.bg_very_high))
+            }
+
         }
 
     }
