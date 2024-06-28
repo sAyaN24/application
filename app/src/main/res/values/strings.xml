@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LoginContent</string>
+    <string name="app_name">Allergy Guard</string>
     <string name="welcome">Welcome</string>
     <string name="login_back">Login back to your account</string>
     <string name="login">Login</string>

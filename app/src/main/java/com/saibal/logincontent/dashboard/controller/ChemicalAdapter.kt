@@ -57,7 +57,7 @@ class ChemicalAdapter(private var context: Context, private var chemicalList: Mu
                 holder.toogleIv.setImageDrawable(context.resources.getDrawable(R.drawable.round_arrow_up))
             }
         }
-       //
+
         when(chemical.Severity){
             "Medium" ->{ holder.imageIv.setImageDrawable(context.resources.getDrawable(R.drawable.severity_medium))
                 holder.severityIvBar.setImageDrawable(context.resources.getDrawable(R.color.bg_yellow))
@@ -80,7 +80,6 @@ class ChemicalAdapter(private var context: Context, private var chemicalList: Mu
     override fun getItemCount(): Int {
        return chemicalList.size
     }
-
 
 //    override fun getFilter(): Filter {
 //

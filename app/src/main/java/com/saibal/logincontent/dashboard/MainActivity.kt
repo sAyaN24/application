@@ -1,11 +1,12 @@
 package com.saibal.logincontent.dashboard
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
+import android.util.Base64
+import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -25,11 +26,11 @@ import org.json.JSONArray
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var spinner: Spinner
     private val chemicalList = mutableListOf<Chemical>()
     private lateinit var chemicalAdapter: ChemicalAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var floatingActionButton: FloatingActionButton
+    private lateinit var ingradientCroppedIv: ImageView
     private var ingredientsResponse = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,25 +43,16 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        val a = listOf("Lorem", "Ipsum", "Dolor", "Sit", "Amet")
-        spinner = findViewById(R.id.filterSpinner)
-
         if(intent.hasExtra(Common.INGREDIENT_RES_INTENT_KEY)){
             ingredientsResponse = intent.getStringExtra(Common.INGREDIENT_RES_INTENT_KEY)!!
         }
 
         recyclerView = findViewById(R.id.checmicalDetailsRv)
         floatingActionButton = findViewById(R.id.userFloatingActionButton)
-        spinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, a)
-
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
-            }
+        ingradientCroppedIv = findViewById(R.id.ingredientCroppedIv)
+        if(intent.hasExtra(Common.IMAGE_BASE_64_INTENT_KEY)){
+            val imageUriString = intent.getStringExtra(Common.IMAGE_BASE_64_INTENT_KEY)
+            ingradientCroppedIv.setImageURI(Uri.parse(imageUriString))
         }
 
         chemicalAdapter = ChemicalAdapter(this, chemicalList)
@@ -73,28 +65,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this,UserActivity::class.java))
         }
     }
-//
-//    private fun fetchDetailsOfChemicals() {
-//        val url = "http://192.168.1.43:3000/Ingredients"
-//
-//        CoroutineScope(Dispatchers.IO).launch {
-//            try {
-//                val response = NetworkCall.fetchResponse(applicationContext, url)
-//                withContext(Dispatchers.Main) {
-//                    for(i in 0 until response.length()){
-//                        var jsonObject = response.getJSONObject(i)
-//                        var todoJson = jsonObject.toString()
-//                        var gson = Gson()
-//                        var chemical = gson.fromJson(todoJson, Chemical::class.java)
-//                        chemicalList.add(chemical)
-//                        chemicalAdapter.notifyItemInserted(i)
-//                    }
-//                }
-//            }catch(e: Exception){
-//
-//            }
-//        }
-//    }
 
     private fun fetchIngredients(){
         var ingredientJsonArray = JSONArray(ingredientsResponse)
@@ -111,6 +81,11 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         startActivity(Intent(this, PictureUploadActivity::class.java))
+    }
+
+    private fun decodeBase64(base64String: String):Bitmap{
+        val byteArray = Base64.decode(base64String, Base64.DEFAULT)
+        return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
     }
 
 //    val severityComparator = Comparator<Chemical> { chem1, chem2 ->

@@ -12,8 +12,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.textfield.TextInputEditText
 import com.saibal.logincontent.R
+import com.saibal.logincontent.camera.PictureUploadActivity
 import com.saibal.logincontent.common.Common
-import com.saibal.logincontent.dashboard.MainActivity
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -50,7 +50,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             //change activity to main activity
             //finish()
             Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
-            var intent:Intent = Intent(this, MainActivity::class.java)
+            var intent:Intent = Intent(this, PictureUploadActivity::class.java)
             intent.putExtra(Common.USER_EMAIL_INTENET_KEY, emailEditText.text.toString())
             startActivity(intent)
             finishAffinity()

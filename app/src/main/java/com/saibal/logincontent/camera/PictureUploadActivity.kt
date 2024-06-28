@@ -1,7 +1,5 @@
 package com.saibal.logincontent.camera
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.widget.FrameLayout
 import androidx.activity.enableEdgeToEdge
@@ -12,7 +10,6 @@ import androidx.core.view.WindowInsetsCompat
 import com.saibal.logincontent.R
 import com.saibal.logincontent.camera.ui.FileUploadFragment
 import com.saibal.logincontent.common.Common
-import java.io.ByteArrayOutputStream
 
 
 class PictureUploadActivity : AppCompatActivity(){
@@ -47,13 +44,5 @@ class PictureUploadActivity : AppCompatActivity(){
 
         supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, FileUploadFragment()).commit()
     }
-
-    private fun compressImage(image: Bitmap): Bitmap {
-        val stream = ByteArrayOutputStream()
-        image.compress(Bitmap.CompressFormat.JPEG, 50, stream)
-        val byteArray = stream.toByteArray()
-        return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
-    }
-
 
 }

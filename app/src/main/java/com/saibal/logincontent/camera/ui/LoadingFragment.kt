@@ -1,5 +1,6 @@
 package com.saibal.logincontent.camera.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -12,6 +13,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.saibal.logincontent.R
+import com.saibal.logincontent.camera.PictureUploadActivity
 
 private const val ARG_PARAM = "param"
 
@@ -55,7 +57,7 @@ class LoadingFragment(var flag: Boolean) : Fragment() {
                 noRespTv.visibility = View.VISIBLE
                 noRespIv.visibility = View.VISIBLE
                 goBackBtn.visibility = View.VISIBLE
-            }, 20100)
+            }, 25100)
         }
         else{
             loaddingSpinner.visibility = View.GONE
@@ -66,7 +68,7 @@ class LoadingFragment(var flag: Boolean) : Fragment() {
         }
 
         goBackBtn.setOnClickListener {
-            requireActivity().onBackPressed()
+            requireActivity().startActivity(Intent(requireContext(), PictureUploadActivity::class.java))
         }
     }
 
@@ -74,5 +76,7 @@ class LoadingFragment(var flag: Boolean) : Fragment() {
         super.onDestroy()
         mainHandler.removeCallbacksAndMessages(null)
     }
+
+
 
 }

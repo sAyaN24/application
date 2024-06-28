@@ -38,7 +38,7 @@
                 android:paddingRight="15dp"
                 android:paddingBottom="18dp"
                 android:visibility="visible"
-                tools:visibility="gone"
+                tools:visibility="visible"
                 />
 
             <TextView
@@ -51,6 +51,8 @@
                 android:textSize="18sp"
                 android:gravity="center_vertical"
                 tools:gravity="bottom"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
                 />
 
             <ImageView
